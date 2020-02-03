@@ -52,7 +52,10 @@ if [ "${1}" == "php" -a "$2" == "artisan" -a "$3" == "serve" ]; then
     composer require laravel/ui
     composer install
     php artisan ui vue --auth
+    npm config set registry https://registry.npm.taobao.org
     npm install && npm run dev
+    sed -i "s/DB_HOST=127.0.0.1/DB_HOST=mysql/g" /app/.env
+    sed -i "s/DB_PASSWORD=/DB_PASSWORD=my_password/g" /app/.env
     log "Dependencies installed with auth"
   else
     composer update
