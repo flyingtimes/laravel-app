@@ -14,7 +14,7 @@ app_present() {
 }
 
 vendor_present() {
-  [ -f /app/vendor ]
+  [ -d /app/vendor ]
 }
 
 wait_for_db() {
