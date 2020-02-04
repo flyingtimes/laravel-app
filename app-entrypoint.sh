@@ -52,9 +52,19 @@ if [ "${1}" == "php" -a "$2" == "artisan" -a "$3" == "serve" ]; then
   if fresh_container; then
     log "installing laravel dependencies"
     composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-    composer require laravel/ui && php artisan ui vue --auth
-    npm config set registry https://registry.npm.taobao.org
-    npm install && npm run dev
+    composer require encore/laravel-admin
+    php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
+    php artisan admin:install
+    # set lang to zh-CN
+    composer require caouecs/laravel-lang
+    sed -i "s/'locale' => 'en'/'locale' => 'zh-CN'/g" /app/config/app.php
+    # install helper plugin
+    composer require laravel-admin-ext/helpers
+    php artisan admin:import helpers
+    # install log-viewer plugin
+    composer require laravel-admin-ext/log-viewer
+    php artisan admin:import log-viewer
+    
     sed -i "s/DB_HOST=127.0.0.1/DB_HOST=mysql/g" /app/.env
     sed -i "s/DB_PASSWORD=/DB_PASSWORD=my_password/g" /app/.env
     log "Dependencies installed with auth"
