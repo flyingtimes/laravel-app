@@ -9,3 +9,4 @@ app-entrypoint.sh 可能需要增加执行权限
 ## branch:admin
 laravel-admin的初始化安装，locale改为zh-CN，包含了helper，log viewer几个基本的插件
 运行完docker-compose up -d 以后，将安装相应的文件
+额外安装的内容，实际上都在app-entrypoint.sh中定义
