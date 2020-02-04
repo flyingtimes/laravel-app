@@ -44,21 +44,24 @@ if [ "${1}" == "php" -a "$2" == "artisan" -a "$3" == "serve" ]; then
   if ! app_present; then
     log "Creating laravel application"
     cp -a /tmp/app/. /app/
+    log "laravel application created"
+
   fi
 
   log "Installing/Updating Laravel dependencies (composer)"
-  if ! vendor_present; then
+  if fresh_container; then
+    log "installing laravel dependencies"
     composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-    composer require laravel/ui
-    composer install
-    php artisan ui vue --auth
+    composer require laravel/ui && php artisan ui vue --auth
     npm config set registry https://registry.npm.taobao.org
     npm install && npm run dev
     sed -i "s/DB_HOST=127.0.0.1/DB_HOST=mysql/g" /app/.env
     sed -i "s/DB_PASSWORD=/DB_PASSWORD=my_password/g" /app/.env
     log "Dependencies installed with auth"
   else
-    composer update
+    log "uncomment following two lines if you want to update dependencies"
+    #composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+    #composer update
     log "Dependencies updated"
   fi
 
