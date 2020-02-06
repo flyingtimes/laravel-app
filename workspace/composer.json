@@ -16,6 +16,7 @@
         "laravel-admin-ext/log-viewer": "^1.0",
         "laravel-admin-ext/media-player": "^1.1",
         "laravel/framework": "^6.2",
+        "laravel/passport": "^8.3",
         "laravel/tinker": "^2.0"
     },
     "require-dev": {

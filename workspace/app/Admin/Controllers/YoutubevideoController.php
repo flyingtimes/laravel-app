@@ -14,6 +14,7 @@ class YoutubevideoController extends Controller
 {
     use HasResourceActions;
 
+    
     /**
      * Index interface.
      *

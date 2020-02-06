@@ -64,6 +64,11 @@ if [ "${1}" == "php" -a "$2" == "artisan" -a "$3" == "serve" ]; then
     # install log-viewer plugin
     composer require laravel-admin-ext/log-viewer
     php artisan admin:import log-viewer
+    # install laravel-passport
+    # see tutorial at https://github.com/anil-sidhu/laravel-passport-poc
+    composer require laravel/passport
+    php artisan migrate
+    php artisan passport:install
     
     sed -i "s/DB_HOST=127.0.0.1/DB_HOST=mysql/g" /app/.env
     sed -i "s/DB_PASSWORD=/DB_PASSWORD=my_password/g" /app/.env
