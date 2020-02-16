@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\Dashboard;
 use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
+use Encore\Admin\Widgets\InfoBox;
 
 class HomeController extends Controller
 {
@@ -16,6 +17,11 @@ class HomeController extends Controller
             ->title('Dashboard')
             ->description('Description...')
             ->row(Dashboard::title())
+            ->row(function (Row $row) {
+                $row->column(4, function (Column $column) {
+                    $column->append(new InfoBox('用户数', 'users', 'aqua', '/admin/users', '3'));
+                });
+            })
             ->row(function (Row $row) {
 
                 $row->column(4, function (Column $column) {
